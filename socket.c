@@ -16,7 +16,7 @@ static void	socket_setopt(int socket_fd, struct sockaddr_in *address)
 	int	opt;
 
 	opt = 1;
-	if (setsockopt(socket_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt
+	if (setsockopt(socket_fd, SOL_SOCKET, SO_REUSEADDR, &opt
 				, sizeof(opt)))
 		error("Socket option binding failed");
 	address->sin_family = AF_INET;
@@ -56,6 +56,7 @@ void		init_server(t_node *node)
 	serv_address = (struct sockaddr *)&address;
 	socket_client_init(node);
 	node->addr = address;
+	node->serv_addr = address;
 	node->socket_fd = socket_fd;
 	node->type = SERVER;
 }

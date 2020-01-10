@@ -1,11 +1,22 @@
 
 #include "socket.h"
 
+static void server_init_msg(t_node *node)
+{
+	char ip[INET_ADDRSTRLEN];
+
+	printf("Server initialized -\n");
+	inet_ntop(AF_INET, &(node->serv_addr.sin_addr), ip, INET_ADDRSTRLEN);
+	printf("Server IP          : %s\nServer PORT        : %i\n", ip, PORT);
+	printf("Server max client  : %i\n", MAXCON);
+}
+
 static void server_loop(t_node *node)
 {
 	int	max_sd;
 	int	activity;
 
+	server_init_msg(node);
 	while (1)
 	{
 		FD_ZERO(&(node->con_set));
@@ -24,12 +35,21 @@ static void server_loop(t_node *node)
 
 static void	loop(t_node *node)
 {
-	char	buf[BUFFER_SIZE];
-	size_t	rsize;
+	char	buffer[BUFFER_SIZE + 1];
 
 	if (node->type == SERVER)
 		server_loop(node);
 	else
+	{
+		printf("Awaiting input\n");
+		bzero(buffer, BUFFER_SIZE);
+		printf("%i\n", strcmp(buffer, "START"));
+		while (strcmp(buffer, "START"))
+		{
+			bzero(buffer, BUFFER_SIZE);
+			read(node->socket_fd, buffer, BUFFER_SIZE);
+		}
+		printf("Input received\n");
 		while (1)
 		{
 			time_t current_time;
@@ -46,18 +66,24 @@ static void	loop(t_node *node)
 			send(node->socket_fd, timeString , strlen(timeString) , 0);
 			sleep(5);
 		}
+	}
 }
 
 static void get_client_info(t_node *node)
 {
-	char	*target;
-	char	*ans;
+	char	target[1024];
+	char	ans[1024];
 
+	bzero(target, 1024);
 	printf("Please input target ip : ");
-	scanf("%ms", &target);
+	//scanf("%ms", &target); // Only for linux because mac sucks for scanf
+	scanf("%s", target);
 	printf("Is %s correct ? (Y\\n) ", target);
-	scanf("%m[Y-n]", &ans);
-	init_client(node, "127.0.0.1");
+	scanf("%s", ans);
+	if (!strcmp(ans, "Y"))
+		init_client(node, "127.0.0.1");
+	else
+		get_client_info(node);
 }
 
 int			main(int argc, char **argv)

@@ -10,8 +10,8 @@
 # include <string.h>
 # include <time.h>
 
-# define PORT			8080
-# define MAXCON			1
+# define PORT			7654
+# define MAXCON			10
 # define BUFFER_SIZE	1024
 
 # define CLIENT 2
@@ -21,6 +21,7 @@ typedef	struct	s_node
 {
 	int					type;
 	struct sockaddr_in	addr;
+	struct sockaddr_in	serv_addr;
 	int					socket_fd;
 	fd_set				con_set;
 	int					con_socket[MAXCON];

@@ -63,9 +63,9 @@ void	manage_con_new(t_node *node)
 			, ntohs(node->addr.sin_port));
 	printf("Client fd : %i\n", client_fd);
 
-	if ((send(client_fd, "Hello\n", 7, 0) != 7))
+	sleep(5);
+	if ((send(client_fd, "START", 6, 0) != 6))
 		printf("Welcoming message sending failed");
-
 	set_new_child(node, client_fd);
 }
 
@@ -74,7 +74,7 @@ void	manage_con_event(t_node *node)
 	int		client_id;
 	int		sd;
 	size_t	rbyte;
-	char	buffer[BUFFER_SIZE];
+	char	buffer[BUFFER_SIZE + 1];
 
 	client_id = -1;
 	while (++client_id < MAXCON)
