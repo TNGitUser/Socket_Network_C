@@ -80,7 +80,7 @@ static void get_client_info(t_node *node)
 	scanf("%s", target);
 	printf("Is %s correct ? (Y\\n) ", target);
 	scanf("%s", ans);
-	if (!strcmp(ans, "Y"))
+	if (!strcmp(ans, "Y") && is_ip_valid(target))
 		init_client(node, target);
 	else
 		get_client_info(node);
