@@ -81,7 +81,7 @@ static void get_client_info(t_node *node)
 	printf("Is %s correct ? (Y\\n) ", target);
 	scanf("%s", ans);
 	if (!strcmp(ans, "Y"))
-		init_client(node, "127.0.0.1");
+		init_client(node, target);
 	else
 		get_client_info(node);
 }
