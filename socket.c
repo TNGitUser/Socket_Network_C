@@ -57,6 +57,5 @@ void		init_server(t_node *node)
 	socket_client_init(node);
 	node->addr = address;
 	node->socket_fd = socket_fd;
-	node->con_fd = con_fd;
 	node->type = SERVER;
 }

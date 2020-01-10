@@ -48,6 +48,18 @@ static void	loop(t_node *node)
 		}
 }
 
+static void get_client_info(t_node *node)
+{
+	char	*target;
+	char	*ans;
+
+	printf("Please input target ip : ");
+	scanf("%ms", &target);
+	printf("Is %s correct ? (Y\\n) ", target);
+	scanf("%m[Y-n]", &ans);
+	init_client(node, "127.0.0.1");
+}
+
 int			main(int argc, char **argv)
 {
 	t_node	node;
@@ -59,6 +71,6 @@ int			main(int argc, char **argv)
 	if (!strcmp(argv[1], "server"))
 		init_server(&node);
 	else if (!strcmp(argv[1], "client"))
-		init_client(&node, "127.0.0.1");
+		get_client_info(&node);
 	loop(&node);
 }

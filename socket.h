@@ -22,8 +22,6 @@ typedef	struct	s_node
 	int					type;
 	struct sockaddr_in	addr;
 	int					socket_fd;
-	int					con_fd; // con_fd is only usable if we assume that there
-								// is only 1 client
 	fd_set				con_set;
 	int					con_socket[MAXCON];
 
