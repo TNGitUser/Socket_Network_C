@@ -36,35 +36,33 @@ static void server_loop(t_node *node)
 static void	loop(t_node *node)
 {
 	char	buffer[BUFFER_SIZE + 1];
+	size_t	recv;
+	t_dummy dummy_data;
 
+	dummy_data.status = 0;
+	dummy_data.param = NULL;
 	if (node->type == SERVER)
 		server_loop(node);
 	else
 	{
 		printf("Awaiting input\n");
 		bzero(buffer, BUFFER_SIZE);
-		printf("%i\n", strcmp(buffer, "START"));
-		while (strcmp(buffer, "START"))
+		printf("Status : %i\n", dummy_data.status);
+		while (dummy_data.status == 0)
 		{
-			bzero(buffer, BUFFER_SIZE);
-			read(node->socket_fd, buffer, BUFFER_SIZE);
+			read(node->socket_fd, &dummy_data, sizeof(dummy_data));
+			printf("Status : %i\n", dummy_data.status);
+			printf("dummy_data param : %p\n", (dummy_data.param));
 		}
 		printf("Input received\n");
 		while (1)
 		{
-			time_t current_time;
-			struct tm * time_info;
-			char timeString[10];  // space for "HH:MM:SS\0"
-
-			time(&current_time);
-			time_info = localtime(&current_time);
-
-			strftime(timeString, sizeof(timeString), "%H:%M:%S", time_info);
-			timeString[9] = '\0';
-			//rsize = read(node->socket_fd, buf, BUFFER_SIZE);
-			printf("Client : %s\n", timeString);
-			send(node->socket_fd, timeString , strlen(timeString) , 0);
-			sleep(5);
+			bzero(buffer, BUFFER_SIZE);
+			//send_time(node);
+			printf("Received : %li\n", read(node->socket_fd, &recv, sizeof(recv)));
+			recv = ntohl(recv);
+			printf("Received : %li\n", read(node->socket_fd, buffer, recv));
+			printf("%s\n", buffer);
 		}
 	}
 }
@@ -72,18 +70,20 @@ static void	loop(t_node *node)
 static void get_client_info(t_node *node)
 {
 	char	target[1024];
-	char	ans[1024];
+	//char	ans[1024];
 
 	bzero(target, 1024);
 	printf("Please input target ip : ");
-	//scanf("%ms", &target); // Only for linux because mac sucks for scanf
 	scanf("%s", target);
-	printf("Is %s correct ? (Y\\n) ", target);
-	scanf("%s", ans);
-	if (!strcmp(ans, "Y") && is_ip_valid(target))
+	//printf("Is %s correct ? (Y\\n) ", target);
+	//scanf("%s", ans);
+	if (/*!strcmp(ans, "Y") && */is_ip_valid(target))
 		init_client(node, target);
 	else
+	{
+		printf("\033[0;31mError, IP is invalid\033[0m\n");
 		get_client_info(node);
+	}
 }
 
 int			main(int argc, char **argv)

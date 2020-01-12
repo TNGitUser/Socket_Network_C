@@ -17,6 +17,13 @@
 # define CLIENT 2
 # define SERVER 1
 
+typedef struct	s_dummy
+{
+	char		*msg;
+	void		*param;
+	int			status;
+}				t_dummy;
+
 typedef	struct	s_node
 {
 	int					type;
@@ -36,6 +43,11 @@ void	init_client(t_node *node, char *server_address);
 void	set_add_child(t_node *node, int *max_fd);
 void	manage_con_new(t_node *node);
 void	manage_con_event(t_node *node);
+
+int		is_ip_valid(char *addr);
+
+void	send_time(t_node *node);	
+void	send_dummy(int client_fd, t_node *node);	
 
 void	error(char *msg);
 

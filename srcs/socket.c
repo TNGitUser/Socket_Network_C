@@ -44,16 +44,12 @@ static void	socket_client_init(t_node *node)
 void		init_server(t_node *node)
 {
 	int					socket_fd;
-	int					con_fd;
 	struct sockaddr_in	address;
-	struct sockaddr		*serv_address;
 
-	con_fd = sizeof(address);
 	socket_fd = -1;
 	socket_fd = socket_init();
 	socket_setopt(socket_fd, &address);
 	socket_bind(socket_fd, &address);
-	serv_address = (struct sockaddr *)&address;
 	socket_client_init(node);
 	node->addr = address;
 	node->serv_addr = address;

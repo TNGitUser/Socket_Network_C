@@ -63,9 +63,12 @@ void	manage_con_new(t_node *node)
 			, ntohs(node->addr.sin_port));
 	printf("Client fd : %i\n", client_fd);
 
-	sleep(5);
-	if ((send(client_fd, "START", 6, 0) != 6))
-		printf("Welcoming message sending failed");
+	sleep(2);
+	/*if ((send(client_fd, "START", 6, 0) != 6))
+		printf("Welcoming message sending failed");*/
+	send_dummy(client_fd, node);
+	/*if ((send(client_fd, &dummy, sizeof(dummy), 0) != sizeof(dummy)))
+		printf("Dummy data sending failed");*/
 	set_new_child(node, client_fd);
 }
 
