@@ -9,6 +9,7 @@ TARGET = cluster
 SRC_PATH = ./srcs
 SRC_FILE = main.c error.c client_socket.c ip_validity.c server_select.c \
 		   socket.c send.c
+SRC_FILE += protocols/read_file.c
 
 OBJ_PATH = ./objs
 OBJ_FILE = $(SRC_FILE:.c=.o)

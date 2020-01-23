@@ -1,0 +1,10 @@
+Protocol :
+	
+	Loop : 
+		- Server 0 : send command
+		- Client X : receive command and stock it
+		- Server 1 : send command size
+		- Client X : check received data size and size sent by server
+					If ok send	STATUS : OK
+					else send	STATUS : FAIL
+		- Server 2 : check return

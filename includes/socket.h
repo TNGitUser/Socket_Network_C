@@ -9,6 +9,7 @@
 # include <netinet/in.h> 
 # include <string.h>
 # include <time.h>
+# include <fcntl.h>
 
 # define PORT			7654
 # define MAXCON			10
@@ -48,6 +49,8 @@ int		is_ip_valid(char *addr);
 
 void	send_time(t_node *node);	
 void	send_dummy(int client_fd, t_node *node);	
+
+void	get_data();
 
 void	error(char *msg);
 
