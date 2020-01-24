@@ -38,10 +38,8 @@ char	*strnjoin(char *src, char *add, char *end)
 	char	*output;
 	int		i;
 
-	if (!src || !add || !end)
-		return (NULL);
-	if (!(output = malloc(sizeof(char) * (strlen(src) + strlen(add)
-						+ strlen(end) + 1))))
+	if (!src || !add || !end || !(output = malloc(sizeof(char)
+					* (strlen(src) + strlen(add) + strlen(end) + 1))))
 		return (NULL);
 	i = 0;
 	while (*src)
@@ -62,6 +60,7 @@ char	*strnjoin(char *src, char *add, char *end)
 	output[i] = '\0';
 	return (output);
 }
+
 char	*strjoin(char *src, char *add)
 {
 	char	*output;

@@ -67,6 +67,7 @@ void	manage_con_new(t_node *node)
 
 	set_new_child(node, client_fd, &id);
 	get_client_name(node, id);
+	node->clients[id].socket = client_fd;
 	cmd = get_set_cmd(0, node->clients[id], NULL);
 	server_to_client(node, id, cmd, GREET_CLIENT);
 	ft_memdel((void **)&cmd);

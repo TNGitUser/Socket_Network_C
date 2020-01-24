@@ -11,12 +11,11 @@ static void	set_name_base(t_node *node, char *text)
 	name_count = strocc(text, '\n');
 	if (name_count == 0)
 		return ;
-	if (!(node->namebase.names = malloc(sizeof(char *) * (name_count + 3))))
+	if (!(node->namebase.names = malloc(sizeof(char *) * (name_count + 1))))
 		error("Failed to malloc name base");
 	id = 0;
-	node->namebase.count = name_count + 2;
-	node->namebase.names[name_count + 1] = NULL;
-	node->namebase.names[name_count + 2] = NULL;
+	node->namebase.count = name_count;
+	node->namebase.names[name_count] = NULL;
 	while (*text)
 	{
 		name = strdelim(&text, '\n');
@@ -42,7 +41,7 @@ void	get_name_file(t_node *node)
 
 void		get_client_name(t_node *node, int id)
 {
-	int	name_id;
+	size_t	name_id;
 
 	name_id = rand() % (node->namebase.count);
 	node->clients[id].name = node->namebase.names[name_id];

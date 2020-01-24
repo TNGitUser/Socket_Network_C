@@ -68,12 +68,15 @@ void	manage_con_event(t_node *node);
 int		is_ip_valid(char *addr);
 
 void	send_time(t_node *node);	
+void	send_string(int client_fd, t_node *node, char *string);
 
 char	*get_data_filename(char *file);
 char	*get_data();
 
 void	send_file(char *text, t_node *node, int client_fd);
 void	receive_file(t_node *node);
+
+void	receive_string(t_node *node);
 
 void	get_name_file(t_node *node);
 void	get_client_name(t_node *node, int id);

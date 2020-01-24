@@ -16,7 +16,7 @@ void	send_time(t_node *node)
 	sleep(5);
 }
 
-static void	send_string(int client_fd, t_node *node, char *string)
+void	send_string(int client_fd, t_node *node, char *string)
 {
 	char	buffer[BUFFER_SIZE];
 	size_t			len;

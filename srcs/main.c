@@ -34,13 +34,13 @@ static void server_loop(t_node *node)
 
 static void	loop(t_node *node)
 {
-
 	if (node->type == SERVER)
 		server_loop(node);
 	else
 	{
 		while (1)
 		{
+			receive_string(node);
 		}
 	}
 }
