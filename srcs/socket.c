@@ -46,6 +46,7 @@ void		init_server(t_node *node)
 	int					socket_fd;
 	struct sockaddr_in	address;
 
+	srand(time(NULL));
 	socket_fd = -1;
 	socket_fd = socket_init();
 	socket_setopt(socket_fd, &address);
@@ -55,4 +56,5 @@ void		init_server(t_node *node)
 	node->serv_addr = address;
 	node->socket_fd = socket_fd;
 	node->type = SERVER;
+	get_name_file(node);
 }

@@ -8,3 +8,12 @@ Protocol :
 					If ok send	STATUS : OK
 					else send	STATUS : FAIL
 		- Server 2 : check return
+
+	Init :
+		- Server : Give identification to client
+		- Client : Receive Identification and await command
+		- Server : Send command (if sending show progression)
+		- Client : Receive command and execute (if receiving show progression)
+		- Client : Send end status
+		- Server : Receive end status (shoz progression if receiving data)
+		(- Client : Disconnect ?)

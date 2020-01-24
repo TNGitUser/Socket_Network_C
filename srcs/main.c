@@ -16,7 +16,7 @@ static void server_loop(t_node *node)
 	int	activity;
 
 	server_init_msg(node);
-	get_data();
+	//get_data();
 	while (1)
 	{
 		FD_ZERO(&(node->con_set));
@@ -48,21 +48,22 @@ static void	loop(t_node *node)
 		printf("Awaiting input\n");
 		bzero(buffer, BUFFER_SIZE);
 		printf("Status : %i\n", dummy_data.status);
-		while (dummy_data.status == 0)
+		/*while (dummy_data.status == 0)
 		{
 			read(node->socket_fd, &dummy_data, sizeof(dummy_data));
 			printf("Status : %i\n", dummy_data.status);
 			printf("dummy_data param : %p\n", (dummy_data.param));
-		}
+		}*/
 		printf("Input received\n");
 		while (1)
 		{
 			bzero(buffer, BUFFER_SIZE);
 			//send_time(node);
-			printf("Received : %li\n", read(node->socket_fd, &recv, sizeof(recv)));
+			receive_file(node);
+			/*printf("Received : %li\n", read(node->socket_fd, &recv, sizeof(recv)));
 			recv = ntohl(recv);
 			printf("Received : %li\n", read(node->socket_fd, buffer, recv));
-			printf("%s\n", buffer);
+			printf("%s\n", buffer);*/
 		}
 	}
 }

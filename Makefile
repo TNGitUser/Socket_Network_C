@@ -8,8 +8,9 @@ TARGET = cluster
 
 SRC_PATH = ./srcs
 SRC_FILE = main.c error.c client_socket.c ip_validity.c server_select.c \
-		   socket.c send.c
-SRC_FILE += protocols/read_file.c
+		   socket.c send.c string_helper.c
+SRC_FILE += protocols/read_file.c protocols/naive.c
+SRC_FILE += identification/get_name_base.c
 
 OBJ_PATH = ./objs
 OBJ_FILE = $(SRC_FILE:.c=.o)
@@ -36,6 +37,8 @@ $(TARGET): $(OBJ)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	@mkdir $(OBJ_PATH)/protocols 2> /dev/null || true
+	@mkdir $(OBJ_PATH)/identification 2> /dev/null || true
 	@gcc $(CFLAGS) -c $< $(CPPFLAGS) -o $@
 	@echo -e "[${Green}Compiled${End}] : $<"
 
@@ -45,6 +48,10 @@ clean:
 	@rm -f $(OBJ)
 	#@$(MAKE) -C libft/ clean
 	@rm -f $(DEP)
+	@rmdir $(OBJ_PATH)/protocols 2> /dev/null || (true && if [ -d "$(OBJ_PATH)/protocols" ]; then\
+		echo -e "$(Red)ERROR$(End)	: $(OBJ_PATH)/protocols is not empty."; fi)
+	@rmdir $(OBJ_PATH)/identification 2> /dev/null || (true && if [ -d "$(OBJ_PATH)/identification" ]; then\
+		echo -e "$(Red)ERROR$(End)	: $(OBJ_PATH)/identification is not empty."; fi)
 	@rmdir $(OBJ_PATH) 2> /dev/null || (true && if [ -d "$(OBJ_PATH)" ]; then\
 		echo -e "$(Red)ERROR$(End)	: $(OBJ_PATH) is not empty."; fi)
 	@echo -e "$(Red)$(TARGET)$(End) : Removing objects"

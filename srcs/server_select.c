@@ -16,7 +16,7 @@ static void set_close_child(t_node *node, int client_id)
 	node->con_socket[client_id] = 0;
 }
 
-static void	set_new_child(t_node *node, int client_fd)
+static void	set_new_child(t_node *node, int client_fd, int *id)
 {
 	int	i;
 
@@ -27,6 +27,7 @@ static void	set_new_child(t_node *node, int client_fd)
 		{
 			node->con_socket[i] = client_fd;
 			printf("Client id : %i\n\n", i);
+			*id = i;
 			break ;
 		}
 	}
@@ -41,7 +42,6 @@ void	set_add_child(t_node *node, int *max_fd)
 	while (++client < MAXCON)
 	{
 		client_fd = node->con_socket[client];
-
 		if (client_fd > 0)
 			FD_SET(client_fd, &node->con_set);
 		if (client_fd > *max_fd)
@@ -53,6 +53,7 @@ void	manage_con_new(t_node *node)
 {
 	int		client_fd;
 	size_t	addr_len;
+	int		id;
 
 	addr_len = sizeof(node->addr);
 	if ((client_fd = accept(node->socket_fd, (struct sockaddr *)&node->addr,
@@ -63,13 +64,9 @@ void	manage_con_new(t_node *node)
 			, ntohs(node->addr.sin_port));
 	printf("Client fd : %i\n", client_fd);
 
+	set_new_child(node, client_fd, &id);
+	get_client_name(node, id);
 	sleep(2);
-	/*if ((send(client_fd, "START", 6, 0) != 6))
-		printf("Welcoming message sending failed");*/
-	send_dummy(client_fd, node);
-	/*if ((send(client_fd, &dummy, sizeof(dummy), 0) != sizeof(dummy)))
-		printf("Dummy data sending failed");*/
-	set_new_child(node, client_fd);
 }
 
 void	manage_con_event(t_node *node)

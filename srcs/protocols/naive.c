@@ -6,8 +6,9 @@ void	send_file(char *text, t_node *node, int client_fd)
 	size_t	datalen;
 	size_t	to_send;
 	char	buffer[129];
-	int		i;
+	size_t	i;
 
+	(void)node;
 	datalen = strlen(text);
 	to_send = htonl(datalen);
 	send(client_fd, &to_send, sizeof(to_send), 0);
@@ -17,6 +18,7 @@ void	send_file(char *text, t_node *node, int client_fd)
 		while (i < datalen)
 		{
 			strncpy(buffer, text + i, 128);
+			printf("Sending : \n%s\n", buffer);
 			send(client_fd, &buffer, strlen(buffer), 0);
 			i += 128;
 		}
@@ -28,16 +30,27 @@ void	send_file(char *text, t_node *node, int client_fd)
 void	receive_file(t_node *node)
 {
 	size_t	recv;
-	size_t	rsize;
+	size_t	rsize[2];
 	char	*data;
 	char	buffer[128 + 1];
+	char	*output;
 
-	read(node->socket_fd, &recv, sizeof(recv), 0);
+	read(node->socket_fd, &recv, sizeof(recv));
 	recv = ntohl(recv);
-	rsize = 0;
+	printf("Expected size : %li\n", recv);
+	rsize[0] = 0;
 	data = strdup("");
-	while (read(node->socket_fd, buffer, 128, 0) > 0)
+	while ((rsize[1] = read(node->socket_fd, buffer, 128)) > 0)
 	{
-		strjoin();
+		rsize[0] += rsize[1];
+		buffer[rsize[1]] = '\0';
+		output = strjoin(data, buffer);
+		free(data);
+		data = output;
+		printf("Current : %li\n", rsize[0]);
+		printf("Received : \n\n%s\n\n", buffer);
+		if (rsize[0] >= recv)
+			break ;
 	}
+	printf("Received : \n\n%s\n\n", output);
 }
