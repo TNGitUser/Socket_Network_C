@@ -54,6 +54,7 @@ void	manage_con_new(t_node *node)
 	int		client_fd;
 	size_t	addr_len;
 	int		id;
+	char	*cmd;
 
 	addr_len = sizeof(node->addr);
 	if ((client_fd = accept(node->socket_fd, (struct sockaddr *)&node->addr,
@@ -66,6 +67,9 @@ void	manage_con_new(t_node *node)
 
 	set_new_child(node, client_fd, &id);
 	get_client_name(node, id);
+	cmd = get_set_cmd(0, node->clients[id], NULL);
+	server_to_client(node, id, cmd, GREET_CLIENT);
+	ft_memdel((void **)&cmd);
 	sleep(2);
 }
 

@@ -48,7 +48,7 @@ void		get_client_name(t_node *node, int id)
 	node->clients[id].name = node->namebase.names[name_id];
 	node->clients[id].name_id = name_id;
 	node->clients[id].color[0] = rand() % 256;
-	node->clients[id].color[0] = rand() % 256;
-	node->clients[id].color[0] = rand() % 256;
+	node->clients[id].color[1] = rand() % 256;
+	node->clients[id].color[2] = rand() % 256;
 	printf("Client name : [%s]\n", node->clients[id].name);
 }

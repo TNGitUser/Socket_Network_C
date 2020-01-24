@@ -33,6 +33,35 @@ size_t	strocc(char *src, char c)
 	return (count);
 }
 
+char	*strnjoin(char *src, char *add, char *end)
+{
+	char	*output;
+	int		i;
+
+	if (!src || !add || !end)
+		return (NULL);
+	if (!(output = malloc(sizeof(char) * (strlen(src) + strlen(add)
+						+ strlen(end) + 1))))
+		return (NULL);
+	i = 0;
+	while (*src)
+	{
+		output[i++] = *src;
+		++src;
+	}
+	while (*add)
+	{
+		output[i++] = *add;
+		++add;
+	}
+	while (*end)
+	{
+		output[i++] = *end;
+		++end;
+	}
+	output[i] = '\0';
+	return (output);
+}
 char	*strjoin(char *src, char *add)
 {
 	char	*output;

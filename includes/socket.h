@@ -11,6 +11,8 @@
 # include <time.h>
 # include <fcntl.h>
 
+# include "libft.h"
+
 # define PORT			7654
 # define MAXCON			10
 # define BUFFER_SIZE	1024
@@ -30,13 +32,6 @@ typedef struct	s_name_base
 	size_t		count;
 }				t_name_base;
 
-typedef struct	s_dummy
-{
-	char		*msg;
-	void		*param;
-	int			status;
-}				t_dummy;
-
 typedef struct	s_client
 {
 	int			active;
@@ -49,7 +44,6 @@ typedef struct	s_client
 typedef	struct	s_node
 {
 	size_t				id;
-	char				*name;
 	int					type;
 	struct sockaddr_in	addr;
 	struct sockaddr_in	serv_addr;
@@ -57,6 +51,7 @@ typedef	struct	s_node
 	fd_set				con_set;
 	int					con_socket[MAXCON];
 	t_client			clients[MAXCON];
+	t_client			info;
 	t_name_base			namebase;
 
 }				t_node;
@@ -73,7 +68,6 @@ void	manage_con_event(t_node *node);
 int		is_ip_valid(char *addr);
 
 void	send_time(t_node *node);	
-void	send_dummy(int client_fd, t_node *node);	
 
 char	*get_data_filename(char *file);
 char	*get_data();
@@ -84,8 +78,15 @@ void	receive_file(t_node *node);
 void	get_name_file(t_node *node);
 void	get_client_name(t_node *node, int id);
 
+char	*get_set_cmd(int cmd_t, t_client client, int bounds[4]);
+void	server_to_client(t_node *node, int client_id, char *cmd, int prot);
+
+void	string_to_color(char *str, t_node *node);
+char	*color_to_string(int colors[3]);
+
 char	*strdelim(char **src, char c);
 size_t	strocc(char *src, char c);
+char	*strnjoin(char *src, char *add, char *end);
 char	*strjoin(char *src, char *add);
 
 void	error(char *msg);

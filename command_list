@@ -6,7 +6,7 @@ RT command :
 
 SET		command :
 	BOUNDS startx starty endx endy	- Set the working zone for the client
-	CLIENT name color[ r g b ]		- Init client identification informations
+	CLIENT 'name' r g b				- Init client identification informations
 
 STATUS	command :
 	no idea yet
@@ -17,3 +17,9 @@ RETURN	command	:
 
 CLOSE	command :
 	Server command to close client.
+
+Command should be done like this :
+	- Server : Command sent 
+	- Client : Receive command
+	- Client : Send confirm
+	- Server : Receive confirm

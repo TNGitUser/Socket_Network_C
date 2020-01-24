@@ -34,35 +34,13 @@ static void server_loop(t_node *node)
 
 static void	loop(t_node *node)
 {
-	char	buffer[BUFFER_SIZE + 1];
-	size_t	recv;
-	t_dummy dummy_data;
 
-	dummy_data.status = 0;
-	dummy_data.param = NULL;
 	if (node->type == SERVER)
 		server_loop(node);
 	else
 	{
-		printf("Awaiting input\n");
-		bzero(buffer, BUFFER_SIZE);
-		printf("Status : %i\n", dummy_data.status);
-		/*while (dummy_data.status == 0)
-		{
-			read(node->socket_fd, &dummy_data, sizeof(dummy_data));
-			printf("Status : %i\n", dummy_data.status);
-			printf("dummy_data param : %p\n", (dummy_data.param));
-		}*/
-		printf("Input received\n");
 		while (1)
 		{
-			bzero(buffer, BUFFER_SIZE);
-			//send_time(node);
-			receive_file(node);
-			/*printf("Received : %li\n", read(node->socket_fd, &recv, sizeof(recv)));
-			recv = ntohl(recv);
-			printf("Received : %li\n", read(node->socket_fd, buffer, recv));
-			printf("%s\n", buffer);*/
 		}
 	}
 }
@@ -70,14 +48,11 @@ static void	loop(t_node *node)
 static void get_client_info(t_node *node)
 {
 	char	target[1024];
-	//char	ans[1024];
 
 	bzero(target, 1024);
 	printf("Please input target ip : ");
 	scanf("%s", target);
-	//printf("Is %s correct ? (Y\\n) ", target);
-	//scanf("%s", ans);
-	if (/*!strcmp(ans, "Y") && */is_ip_valid(target))
+	if (is_ip_valid(target))
 		init_client(node, target);
 	else
 	{
