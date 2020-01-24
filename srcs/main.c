@@ -16,7 +16,6 @@ static void server_loop(t_node *node)
 	int	activity;
 
 	server_init_msg(node);
-	//get_data();
 	while (1)
 	{
 		FD_ZERO(&(node->con_set));

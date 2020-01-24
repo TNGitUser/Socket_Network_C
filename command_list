@@ -1,0 +1,19 @@
+RT command :
+	SET
+	STATUS
+	RETURN
+	CLOSE
+
+SET		command :
+	BOUNDS startx starty endx endy	- Set the working zone for the client
+	CLIENT name color[ r g b ]		- Init client identification informations
+
+STATUS	command :
+	no idea yet
+
+RETURN	command	:
+	IMAGE - First used by client to send their work to server.
+			If set, server can send back completed image for them to display.
+
+CLOSE	command :
+	Server command to close client.

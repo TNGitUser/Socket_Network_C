@@ -1,6 +1,15 @@
 
 #include "socket.h"
 
+/*
+**	CMD Example :	"SET		BOUNDS	0		0		250		250"
+**					 COMMAND	VAR		startX	startY	endX	endY
+*/
+void	send_command(t_node *node, char *cmd, int client_id)
+{
+	send_string(node->clients[client_id].socket, node, cmd);
+}
+
 void	send_time(t_node *node)
 {
 	time_t		current_time;

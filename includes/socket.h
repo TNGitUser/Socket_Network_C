@@ -18,7 +18,11 @@
 # define CLIENT 2
 # define SERVER 1
 
-# define NAME_BASE	"data/names.dat" 
+# define NAME_BASE	"data/names.dat"
+
+# define GREET_CLIENT 0
+# define SEND_FILE 1
+# define CLOSE_CLIENT 9
 
 typedef struct	s_name_base
 {

@@ -17,3 +17,8 @@ Protocol :
 		- Client : Send end status
 		- Server : Receive end status (shoz progression if receiving data)
 		(- Client : Disconnect ?)
+
+	RT needs :
+		- Need to send zone to compute
+		- Need to know if zone was computed or failed ?
+		- Need to recuperate computed zone (sending back img_str I guess)
