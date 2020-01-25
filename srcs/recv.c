@@ -25,7 +25,7 @@ char	*receive_string(t_node *node, int *status)
 			output = tmp;
 			ssize[0] += ssize[1];
 		}
-	else
+	else if (recv > 0)
 	{
 		buffer[read(node->socket_fd, buffer, 1024)] = '\0';
 		output = strjoin("", buffer);

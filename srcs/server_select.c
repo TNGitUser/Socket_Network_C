@@ -26,7 +26,7 @@ static void	set_new_child(t_node *node, int client_fd, int *id)
 		if (node->con_socket[i] == 0)
 		{
 			node->con_socket[i] = client_fd;
-			printf("Client id : %i\n\n", i);
+			//printf("Client id : %i\n\n", i);
 			*id = i;
 			break ;
 		}
@@ -61,9 +61,9 @@ void	manage_con_new(t_node *node)
 					(socklen_t *)&addr_len)) < 0)
 		error("Connection from client failed.");
 
-	printf("\nNew connection from %s:%d\n", inet_ntoa(node->addr.sin_addr)
-			, ntohs(node->addr.sin_port));
-	printf("Client fd : %i\n", client_fd);
+	//printf("\nNew connection from %s:%d\n", inet_ntoa(node->addr.sin_addr)
+	//		, ntohs(node->addr.sin_port));
+	//printf("Client fd : %i\n", client_fd);
 
 	set_new_child(node, client_fd, &id);
 	get_client_name(node, id);

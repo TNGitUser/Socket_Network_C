@@ -56,5 +56,6 @@ void		init_server(t_node *node)
 	node->serv_addr = address;
 	node->socket_fd = socket_fd;
 	node->type = SERVER;
+	node->err = 0;
 	get_name_file(node);
 }

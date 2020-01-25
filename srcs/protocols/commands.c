@@ -40,7 +40,10 @@ void	await_command(t_node *node)
 	cmd = receive_string(node, &status);
 	if (!status || !cmd)
 	{
+		if (node->err++ >= 3)
+			error("Too many NULL received. Aborting...");
 		printf("Error : received failed\n");
+		ft_memdel((void **)&cmd);
 		return ;
 	}
 	if (!is_command(cmd, &status))

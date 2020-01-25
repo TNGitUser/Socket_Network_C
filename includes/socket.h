@@ -60,6 +60,7 @@ typedef	struct	s_node
 	t_client			info;
 	char				*param;
 	t_name_base			namebase;
+	int					err;
 
 }				t_node;
 

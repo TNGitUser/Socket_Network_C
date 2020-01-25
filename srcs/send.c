@@ -23,13 +23,15 @@ void	send_string(int client_fd, t_node *node, char *string)
 	size_t			var;
 
 	(void)node;
-	printf("%s\n", string);
+	//printf("%s\n", string);
 	len = strlen(string);
 	var = htonl(len);
-	printf("Sent : %li\n", send(client_fd, &var, sizeof(var), 0));
+	send(client_fd, &var, sizeof(var), 0);
+	//printf("Sent : %li\n", send(client_fd, &var, sizeof(var), 0));
 	strcpy(buffer, string);
 	buffer[len] = '\0';
-	printf("Sent : %li\n", send(client_fd, &buffer, len, 0));
+	send(client_fd, &buffer, len, 0);
+	//printf("Sent : %li\n", send(client_fd, &buffer, len, 0));
 	sleep(1);
 }
 

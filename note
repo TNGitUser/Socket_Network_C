@@ -22,3 +22,8 @@ Protocol :
 		- Need to send zone to compute
 		- Need to know if zone was computed or failed ?
 		- Need to recuperate computed zone (sending back img_str I guess)
+	
+	Ideas :
+		- Need 2 Threads
+			- One for the server commands (START, STATUS, GET) on STDIN
+			- One to manage I/O with clients

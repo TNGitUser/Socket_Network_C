@@ -36,5 +36,6 @@ void	init_client(t_node *node, char *server_address)
 	node->addr = serv_addr;
 	node->socket_fd = socket_fd;
 	node->type = CLIENT;
+	node->err = 0;
 	client_init_info(node);
 }
