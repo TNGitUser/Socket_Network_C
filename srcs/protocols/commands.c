@@ -1,7 +1,7 @@
 
 #include "socket.h"
 
-int		server_send_init(t_node *node, int client_fd, char *cmd)
+int		server_send(t_node *node, int client_fd, char *cmd)
 {
 	send_string(client_fd, node, cmd);
 	// Send command
@@ -11,17 +11,26 @@ int		server_send_init(t_node *node, int client_fd, char *cmd)
 
 void	server_to_client(t_node *node, int client_id, char *cmd, int prot)
 {
-	if (prot == GREET_CLIENT)
-		server_send_init(node, node->clients[client_id].socket, cmd);
+	char	*data;
+
+	if (prot == SET_CLIENT)
+		server_send(node, node->clients[client_id].socket, cmd);
 	else if (prot == SET_BOUNDS)
-		server_send_init(node, node->clients[client_id].socket, cmd);
-	else if (prot == SEND_FILE)
+		server_send(node, node->clients[client_id].socket, cmd);
+	else if (prot == SEND_SCENE)
 	{
-		// Need to send command string for send file (client must be ready to
-		// get file (which in RT case is the scene)
+		server_send(node, node->clients[client_id].socket, cmd);
+		data = get_data_filename("Makefile");
+		send_file(data, node, node->clients[client_id].socket);
+		ft_memdel((void **)&data);
+	}
+	else if (prot == GET_SCENE)
+	{
+		server_send(node, node->clients[client_id].socket, cmd);
 	}
 	else if (prot == CLOSE_CLIENT)
 	{
+		server_send(node, node->clients[client_id].socket, cmd);
 	}
 	else
 		printf("\033[32mUnknown command\033[0m\n");

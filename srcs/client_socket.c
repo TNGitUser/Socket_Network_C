@@ -18,6 +18,7 @@ static void	client_init_info(t_node *node)
 	ft_bzero(info->end, sizeof(int) * 2);
 	ft_bzero(info->color, sizeof(int) * 3);
 	info->ready = 0;
+	info->active = 1;
 }
 
 void	init_client(t_node *node, char *server_address)

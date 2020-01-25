@@ -17,14 +17,15 @@ void	send_file(char *text, t_node *node, int client_fd)
 		i = 0;
 		while (i < datalen)
 		{
+			buffer[128] = '\0';
 			strncpy(buffer, text + i, 128);
-			printf("Sending : \n%s\n", buffer);
 			send(client_fd, &buffer, strlen(buffer), 0);
 			i += 128;
 		}
 	}
 	else
 		send(client_fd, &text, datalen, 0);
+	sleep(10);
 }
 
 void	receive_file(t_node *node)
@@ -35,6 +36,7 @@ void	receive_file(t_node *node)
 	char	buffer[128 + 1];
 	char	*output;
 
+	printf("Awaiting file\n");
 	read(node->socket_fd, &recv, sizeof(recv));
 	recv = ntohl(recv);
 	printf("Expected size : %li\n", recv);
@@ -48,9 +50,9 @@ void	receive_file(t_node *node)
 		free(data);
 		data = output;
 		printf("Current : %li\n", rsize[0]);
-		printf("Received : \n\n%s\n\n", buffer);
 		if (rsize[0] >= recv)
 			break ;
 	}
-	printf("Received : \n\n%s\n\n", output);
+	printf("Integrity : %li%%\n", rsize[0] / recv * 100);
+	node->param = output;
 }

@@ -80,3 +80,22 @@ char		*get_set_cmd(int cmd_t, t_client client, int bounds[4])
 		error("Unknown protocol for get_set_cmd");
 	return (output);
 }
+
+char		*get_other_cmd(int cmd_t, t_node *node)
+{
+	char	*output;
+
+	(void)node;
+	output = NULL;
+	if (cmd_t == SEND_SCENE)
+		output = ft_strdup("RUN");
+	else if (cmd_t == ASK_STATUS)
+		output = ft_strdup("STATUS");
+	else if (cmd_t == GET_SCENE)
+		output = ft_strdup("RETURN");
+	else if (cmd_t == CLOSE_CLIENT)
+		output = ft_strdup("CLOSE");
+	else
+		error("Unknown command protocol");
+	return (output);
+}

@@ -69,9 +69,14 @@ void	manage_con_new(t_node *node)
 	get_client_name(node, id);
 	node->clients[id].socket = client_fd;
 	cmd = get_set_cmd(0, node->clients[id], NULL);
-	server_to_client(node, id, cmd, GREET_CLIENT);
+	server_to_client(node, id, cmd, SET_CLIENT);
 	ft_memdel((void **)&cmd);
-	sleep(2);
+	cmd = get_other_cmd(SEND_SCENE, node);
+	server_to_client(node, id, cmd, SEND_SCENE);
+	ft_memdel((void **)&cmd);
+	cmd = get_other_cmd(CLOSE_CLIENT, node);
+	server_to_client(node, id, cmd, CLOSE_CLIENT);
+	ft_memdel((void **)&cmd);
 }
 
 void	manage_con_event(t_node *node)

@@ -22,10 +22,12 @@
 
 # define NAME_BASE	"data/names.dat"
 
-# define GREET_CLIENT 0
-# define SET_BOUNDS 1
-# define SEND_FILE 2
-# define CLOSE_CLIENT 9
+# define SET_CLIENT		0
+# define SET_BOUNDS		1
+# define SEND_SCENE		2
+# define GET_SCENE		3
+# define ASK_STATUS		4
+# define CLOSE_CLIENT	9
 
 typedef struct	s_name_base
 {
@@ -56,6 +58,7 @@ typedef	struct	s_node
 	int					con_socket[MAXCON];
 	t_client			clients[MAXCON];
 	t_client			info;
+	char				*param;
 	t_name_base			namebase;
 
 }				t_node;
@@ -88,6 +91,8 @@ void	get_client_name(t_node *node, int id);
 int		cmd_dispatch(t_node *node, char *cmd, int *status);
 int		is_command(char *cmd, int *prot);
 char	*get_set_cmd(int cmd_t, t_client client, int bounds[4]);
+char	*get_other_cmd(int cmd_t, t_node *node);
+
 void	server_to_client(t_node *node, int client_id, char *cmd, int prot);
 void	await_command(t_node *node);
 

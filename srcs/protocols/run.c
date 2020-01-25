@@ -7,5 +7,6 @@ int	cmd_run(t_node *node, char *cmd)
 	(void)cmd;
 	// Do the supposed work 
 	// For RT launch computation of the allocated area
+	receive_file(node);
 	return (0);
 }

@@ -13,7 +13,7 @@ STATUS	command :
 	no idea yet
 
 RUN		command :
-	order to start computing the allocated workload
+	Await scene file and then start computing the allocated workload.
 
 RETURN	command	:
 	IMAGE - First used by client to send their work to server.

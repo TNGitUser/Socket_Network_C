@@ -38,7 +38,7 @@ static void	loop(t_node *node)
 		server_loop(node);
 	else
 	{
-		while (1)
+		while (node->info.active)
 		{
 			await_command(node);
 		}
