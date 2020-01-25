@@ -13,7 +13,7 @@ void	send_time(t_node *node)
 	time_string[9] = '\0';
 	printf("Client : %s\n", time_string);
 	send(node->socket_fd, time_string, strlen(time_string), 0);
-	sleep(5);
+	send(node->socket_fd, NULL, 0, 0);
 }
 
 void	send_string(int client_fd, t_node *node, char *string)
@@ -30,6 +30,7 @@ void	send_string(int client_fd, t_node *node, char *string)
 	strcpy(buffer, string);
 	buffer[len] = '\0';
 	printf("Sent : %li\n", send(client_fd, &buffer, len, 0));
+	sleep(1);
 }
 
 /*

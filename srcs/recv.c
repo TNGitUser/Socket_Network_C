@@ -6,8 +6,8 @@ char	*receive_string(t_node *node, int *status)
 	char	buffer[1025];
 	char	*output;
 	char	*tmp;
-	size_t	recv;
-	size_t	ssize[2];
+	ssize_t	recv;
+	ssize_t	ssize[2];
 
 	read(node->socket_fd, &recv, sizeof(recv));
 	recv = ntohl(recv);
@@ -17,6 +17,7 @@ char	*receive_string(t_node *node, int *status)
 	if (recv >= 1024)
 		while ((ssize[1] = read(node->socket_fd, buffer, 1024)) > 0)
 		{
+			printf("%li\n", ssize[1]);
 			buffer[ssize[1]] = '\0';
 			tmp = strjoin(output, buffer);
 			if (output)

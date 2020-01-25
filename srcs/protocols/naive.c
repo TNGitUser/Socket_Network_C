@@ -25,7 +25,7 @@ void	send_file(char *text, t_node *node, int client_fd)
 	}
 	else
 		send(client_fd, &text, datalen, 0);
-	sleep(10);
+	sleep(1);
 }
 
 void	receive_file(t_node *node)

@@ -25,13 +25,9 @@ void	server_to_client(t_node *node, int client_id, char *cmd, int prot)
 		ft_memdel((void **)&data);
 	}
 	else if (prot == GET_SCENE)
-	{
 		server_send(node, node->clients[client_id].socket, cmd);
-	}
 	else if (prot == CLOSE_CLIENT)
-	{
 		server_send(node, node->clients[client_id].socket, cmd);
-	}
 	else
 		printf("\033[32mUnknown command\033[0m\n");
 }
@@ -42,9 +38,9 @@ void	await_command(t_node *node)
 	char	*cmd;
 
 	cmd = receive_string(node, &status);
-	if (!status)
+	if (!status || !cmd)
 	{
-		printf("Error : received failed");
+		printf("Error : received failed\n");
 		return ;
 	}
 	if (!is_command(cmd, &status))
