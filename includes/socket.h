@@ -23,7 +23,8 @@
 # define NAME_BASE	"data/names.dat"
 
 # define GREET_CLIENT 0
-# define SEND_FILE 1
+# define SET_BOUNDS 1
+# define SEND_FILE 2
 # define CLOSE_CLIENT 9
 
 typedef struct	s_name_base
@@ -34,11 +35,14 @@ typedef struct	s_name_base
 
 typedef struct	s_client
 {
+	int			ready;
 	int			active;
 	int			socket;
 	char		*name;
 	int			name_id;
 	int			color[3];
+	int			start[2];
+	int			end[2];
 }				t_client;
 
 typedef	struct	s_node
@@ -76,17 +80,27 @@ char	*get_data();
 void	send_file(char *text, t_node *node, int client_fd);
 void	receive_file(t_node *node);
 
-void	receive_string(t_node *node);
+char	*receive_string(t_node *node, int *status);
 
 void	get_name_file(t_node *node);
 void	get_client_name(t_node *node, int id);
 
+int		cmd_dispatch(t_node *node, char *cmd, int *status);
+int		is_command(char *cmd, int *prot);
 char	*get_set_cmd(int cmd_t, t_client client, int bounds[4]);
 void	server_to_client(t_node *node, int client_id, char *cmd, int prot);
+void	await_command(t_node *node);
 
 void	string_to_color(char *str, t_node *node);
 char	*color_to_string(int colors[3]);
 
+int		cmd_set(t_node *node, char *cmd);
+int		cmd_status(t_node *node, char *cmd);
+int		cmd_run(t_node *node, char *cmd);
+int		cmd_return(t_node *node, char *cmd);
+int		cmd_close(t_node *node, char *cmd);
+
+char	*extract_string(char **src, char start, char end);
 char	*strdelim(char **src, char c);
 size_t	strocc(char *src, char c);
 char	*strnjoin(char *src, char *add, char *end);

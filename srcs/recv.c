@@ -1,7 +1,7 @@
 
 #include "socket.h"
 
-void	receive_string(t_node *node)
+char	*receive_string(t_node *node, int *status)
 {
 	char	buffer[1025];
 	char	*output;
@@ -32,4 +32,6 @@ void	receive_string(t_node *node)
 	}
 	printf("Received string : %s\n", output);
 	printf("Validity : %3li%%\n", ssize[0] / recv * 100);
+	*status = (ssize[0] / recv * 100) == 100;
+	return (output);
 }

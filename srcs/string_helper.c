@@ -1,6 +1,34 @@
 
 #include "socket.h"
 
+char	*extract_string(char **src, char start, char end)
+{
+	char	*cptr;
+	char	*output;
+	int		ex[2];
+	int		i;
+
+	ex[0] = -1;
+	ex[1] = -1;
+	i = 0;
+	cptr = *src;
+	while (cptr[i] && (ex[0] == -1 || ex[1] == -1))
+	{
+		if (i > 0 && cptr[i - 1] != '\\' && cptr[i] == start && ex[0] == -1)
+			ex[0] = i + 1;
+		else if (i == 0 && cptr[i] == start && ex[0] == -1)
+			ex[0] = i + 1;
+		else if (i > 0 && cptr[i - 1] != '\\' && cptr[i] == end && ex[0] != -1)
+			ex[1] = i - 1;
+		else if (i == 0 && cptr[i] == end && ex[0] != -1)
+			ex[1] = i - 1;
+		++i;
+	}
+	output = ft_strsub(*src, ex[0], ex[1]);
+	*src += ex[1] + 2;
+	return (output);
+}
+
 char	*strdelim(char **src, char c)
 {
 	char	*output;

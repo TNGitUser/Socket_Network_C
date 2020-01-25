@@ -1,6 +1,40 @@
 
 #include "socket.h"
 
+int			cmd_dispatch(t_node *node, char *cmd, int *status)
+{
+	if (*status == 0)
+		return (cmd_set(node, cmd));
+	else if (*status == 1)
+		return (cmd_status(node, cmd));
+	else if (*status == 2)
+		return (cmd_run(node, cmd));
+	else if (*status == 3)
+		return (cmd_return(node, cmd));
+	else if (*status == 4)
+		return (cmd_close(node, cmd));
+	return (-1);
+}
+
+int			is_command(char	*cmd, int *prot)
+{
+	int					i;
+	static const char	*directives[] = { "SET", "STATUS", "RUN", "RETURN"
+		, "CLOSE", "NULL"};
+
+	i = 0;
+	while (directives[i])
+	{
+		if (!ft_strncmp(cmd, directives[i], ft_strlen(directives[i])))
+		{
+			*prot = i;
+			return (1);
+		}
+		++i;
+	}
+	return (0);
+}
+
 static char	*get_cmd_bounds(int bounds[4])
 {
 	char	*tmp;

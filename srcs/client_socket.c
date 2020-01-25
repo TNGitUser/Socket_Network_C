@@ -8,6 +8,18 @@ static void	client_connect(int socket_fd, struct sockaddr *serv_addr
 		error("Connection failed");
 }
 
+static void	client_init_info(t_node *node)
+{
+	t_client	*info;
+
+	info = &(node->info);
+	info->name = NULL;
+	ft_bzero(info->start, sizeof(int) * 2);
+	ft_bzero(info->end, sizeof(int) * 2);
+	ft_bzero(info->color, sizeof(int) * 3);
+	info->ready = 0;
+}
+
 void	init_client(t_node *node, char *server_address)
 {
 	int					socket_fd;
@@ -23,4 +35,5 @@ void	init_client(t_node *node, char *server_address)
 	node->addr = serv_addr;
 	node->socket_fd = socket_fd;
 	node->type = CLIENT;
+	client_init_info(node);
 }

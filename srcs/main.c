@@ -40,7 +40,7 @@ static void	loop(t_node *node)
 	{
 		while (1)
 		{
-			receive_string(node);
+			await_command(node);
 		}
 	}
 }

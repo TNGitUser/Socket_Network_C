@@ -10,7 +10,8 @@ SRC_PATH = ./srcs
 SRC_FILE = main.c error.c client_socket.c ip_validity.c server_select.c \
 		   socket.c send.c string_helper.c recv.c
 SRC_FILE += protocols/read_file.c protocols/naive.c protocols/commands.c \
-			protocols/commands_helper.c
+			protocols/commands_helper.c protocols/set.c protocols/run.c \
+			protocols/close.c protocols/status.c protocols/return.c
 SRC_FILE += identification/get_name_base.c identification/colors_helper.c
 
 OBJ_PATH = ./objs

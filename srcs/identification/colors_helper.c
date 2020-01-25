@@ -13,8 +13,11 @@ void	string_to_color(char *str, t_node *node)
 	while (*str && *str != ',')
 		++str;
 	node->info.color[1] = ft_atoi(str + 1);
+	++str;
 	while (*str && *str != ',')
 		++str;
+	if (!str)
+		error("Error in color conversion, missing last component");
 	node->info.color[2] = ft_atoi(str + 1);
 	return ;
 }
