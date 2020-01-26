@@ -10,7 +10,7 @@ static void set_close_child(t_node *node, int client_id)
 	client_fd = node->con_socket[client_id];
 	getpeername(client_fd, (struct sockaddr *)&node->addr
 			, (socklen_t *)&addr_len);
-	printf("\033[34mClient %i disconnected\033[0m : %s:%d\n", client_id
+	printf("\033[33mClient %i disconnected\033[0m : %s:%d\n", client_id
 			, inet_ntoa(node->addr.sin_addr), ntohs(node->addr.sin_port));
 	close(client_fd);
 	node->clients[client_id].active = 0;

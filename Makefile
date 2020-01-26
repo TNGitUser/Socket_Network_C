@@ -7,9 +7,9 @@ End=\033[0m
 TARGET = cluster
 
 SRC_PATH = ./srcs
-SRC_FILE = main.c error.c client_socket.c ip_validity.c server_select.c \
-		   socket.c send.c string_helper.c recv.c server_process.c \
-		   server_cmd.c
+SRC_FILE = main.c error.c ip_validity.c send.c string_helper.c recv.c
+SRC_FILE += server/server_process.c server/server_select.c server/server_cmd.c
+SRC_FILE += client/socket.c client/client_socket.c
 SRC_FILE += protocols/read_file.c protocols/naive.c protocols/commands.c \
 			protocols/commands_helper.c protocols/set.c protocols/run.c \
 			protocols/close.c protocols/status.c protocols/return.c
@@ -43,6 +43,8 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@mkdir $(OBJ_PATH)/protocols 2> /dev/null || true
 	@mkdir $(OBJ_PATH)/identification 2> /dev/null || true
+	@mkdir $(OBJ_PATH)/client 2> /dev/null || true
+	@mkdir $(OBJ_PATH)/server 2> /dev/null || true
 	@gcc $(CFLAGS) -c $< $(CPPFLAGS) -o $@
 	@echo -e "[${Green}Compiled${End}] : $<"
 
@@ -52,6 +54,10 @@ clean:
 	@rm -f $(OBJ)
 	#@$(MAKE) -C libft/ clean
 	@rm -f $(DEP)
+	@rmdir $(OBJ_PATH)/server 2> /dev/null || (true && if [ -d "$(OBJ_PATH)/server" ]; then\
+		echo -e "$(Red)ERROR$(End)	: $(OBJ_PATH)/server is not empty."; fi)
+	@rmdir $(OBJ_PATH)/client 2> /dev/null || (true && if [ -d "$(OBJ_PATH)/client" ]; then\
+		echo -e "$(Red)ERROR$(End)	: $(OBJ_PATH)/client is not empty."; fi)
 	@rmdir $(OBJ_PATH)/protocols 2> /dev/null || (true && if [ -d "$(OBJ_PATH)/protocols" ]; then\
 		echo -e "$(Red)ERROR$(End)	: $(OBJ_PATH)/protocols is not empty."; fi)
 	@rmdir $(OBJ_PATH)/identification 2> /dev/null || (true && if [ -d "$(OBJ_PATH)/identification" ]; then\
