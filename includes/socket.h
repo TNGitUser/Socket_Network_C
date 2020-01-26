@@ -10,6 +10,7 @@
 # include <string.h>
 # include <time.h>
 # include <fcntl.h>
+# include <pthread.h>
 
 # include "libft.h"
 
@@ -94,6 +95,10 @@ int		is_command(char *cmd, int *prot);
 char	*get_set_cmd(int cmd_t, t_client client, int bounds[4]);
 char	*get_other_cmd(int cmd_t, t_node *node);
 
+void	server_run(t_node *node);
+
+int		server_dispatch(t_node *node, char *cmd);
+
 void	server_to_client(t_node *node, int client_id, char *cmd, int prot);
 void	await_command(t_node *node);
 
@@ -112,6 +117,7 @@ size_t	strocc(char *src, char c);
 char	*strnjoin(char *src, char *add, char *end);
 char	*strjoin(char *src, char *add);
 
+int		nerror(char *msg);
 void	error(char *msg);
 
 #endif

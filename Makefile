@@ -8,7 +8,8 @@ TARGET = cluster
 
 SRC_PATH = ./srcs
 SRC_FILE = main.c error.c client_socket.c ip_validity.c server_select.c \
-		   socket.c send.c string_helper.c recv.c
+		   socket.c send.c string_helper.c recv.c server_process.c \
+		   server_cmd.c
 SRC_FILE += protocols/read_file.c protocols/naive.c protocols/commands.c \
 			protocols/commands_helper.c protocols/set.c protocols/run.c \
 			protocols/close.c protocols/status.c protocols/return.c
@@ -22,7 +23,7 @@ SRC = $(addprefix $(SRC_PATH)/,$(SRC_FILE))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_FILE))
 DEP = $(addprefix $(OBJ_PATH)/,$(DEP_FILE))
 
-CFLAGS = -Wall -Wextra -g -I./includes -fsanitize=address -g
+CFLAGS = -Wall -Wextra -g -I./includes -fsanitize=address -g -lpthread
 CPPFLAGS = -MMD -MP
 LIB = libft.a
 

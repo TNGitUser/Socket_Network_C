@@ -10,9 +10,10 @@ static void set_close_child(t_node *node, int client_id)
 	client_fd = node->con_socket[client_id];
 	getpeername(client_fd, (struct sockaddr *)&node->addr
 			, (socklen_t *)&addr_len);
-	printf("Client %i disconnected : %s:%d\n", client_id
+	printf("\033[34mClient %i disconnected\033[0m : %s:%d\n", client_id
 			, inet_ntoa(node->addr.sin_addr), ntohs(node->addr.sin_port));
 	close(client_fd);
+	node->clients[client_id].active = 0;
 	node->con_socket[client_id] = 0;
 }
 
@@ -26,7 +27,6 @@ static void	set_new_child(t_node *node, int client_fd, int *id)
 		if (node->con_socket[i] == 0)
 		{
 			node->con_socket[i] = client_fd;
-			//printf("Client id : %i\n\n", i);
 			*id = i;
 			break ;
 		}
@@ -68,6 +68,7 @@ void	manage_con_new(t_node *node)
 	set_new_child(node, client_fd, &id);
 	get_client_name(node, id);
 	node->clients[id].socket = client_fd;
+	node->clients[id].active = 1;
 	cmd = get_set_cmd(0, node->clients[id], NULL);
 	server_to_client(node, id, cmd, SET_CLIENT);
 	ft_memdel((void **)&cmd);

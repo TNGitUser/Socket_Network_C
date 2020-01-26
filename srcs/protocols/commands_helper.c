@@ -20,7 +20,7 @@ int			is_command(char	*cmd, int *prot)
 {
 	int					i;
 	static const char	*directives[] = { "SET", "STATUS", "RUN", "RETURN"
-		, "CLOSE", "NULL"};
+		, "CLOSE", NULL};
 
 	i = 0;
 	while (directives[i])

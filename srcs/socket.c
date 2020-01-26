@@ -45,6 +45,7 @@ void		init_server(t_node *node)
 {
 	int					socket_fd;
 	struct sockaddr_in	address;
+	int					i;
 
 	srand(time(NULL));
 	socket_fd = -1;
@@ -57,5 +58,8 @@ void		init_server(t_node *node)
 	node->socket_fd = socket_fd;
 	node->type = SERVER;
 	node->err = 0;
+	i = 0;
+	while (i < MAXCON)
+		node->clients[i++].active = 0;
 	get_name_file(node);
 }
