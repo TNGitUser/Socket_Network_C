@@ -58,6 +58,7 @@ void		init_server(t_node *node)
 	node->socket_fd = socket_fd;
 	node->type = SERVER;
 	node->err = 0;
+	node->action = 0;
 	i = 0;
 	while (i < MAXCON)
 		node->clients[i++].active = 0;

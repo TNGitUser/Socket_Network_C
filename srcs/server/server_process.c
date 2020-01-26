@@ -30,7 +30,11 @@ static void *server_loop(void *vnode)
 			printf("Select Error");
 		if (FD_ISSET(node->socket_fd, &node->con_set))
 			manage_con_new(node);
-		manage_con_event(node);
+		if (node->action != ACTION_IDLE)
+			printf("Idle\n");
+		else
+			printf("Action : %i\n", node->action);
+		//manage_con_event(node);
 	}
 	pthread_exit(NULL);
 	return (NULL);

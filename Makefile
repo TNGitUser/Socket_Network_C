@@ -8,7 +8,8 @@ TARGET = cluster
 
 SRC_PATH = ./srcs
 SRC_FILE = main.c error.c ip_validity.c send.c string_helper.c recv.c
-SRC_FILE += server/server_process.c server/server_select.c server/server_cmd.c
+SRC_FILE += server/server_process.c server/server_select.c server/server_cmd.c \
+			server/server_helper.c
 SRC_FILE += client/socket.c client/client_socket.c
 SRC_FILE += protocols/read_file.c protocols/naive.c protocols/commands.c \
 			protocols/commands_helper.c protocols/set.c protocols/run.c \

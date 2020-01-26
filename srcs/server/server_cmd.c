@@ -44,9 +44,23 @@ static int	server_runn(t_node *node, char *cmd)
 	return (0);
 }
 
+/*
+**	Function will be used to set workload of each child
+*/
+
 static int	server_set(t_node *node, char *cmd)
 {
-	printf("Not implemented yet\n");
+	int		act;
+	int		wl[2];
+	int		mod[2];
+
+	if ((act = server_get_active(node)) <= 0)
+		return (nerror("No client. Aborting operation..."));
+	//printf("Not implemented yet\n");
+	server_get_workload(node, act, wl, mod);
+	printf("X workload : %i\nY workload : %i\n", wl[0], wl[1]);
+	printf("X mod : %i\nY mod : %i\n", mod[0], mod[1]);
+	node->action = ACTION_BOUNDS;
 	return (0);
 }
 

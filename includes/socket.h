@@ -30,6 +30,12 @@
 # define ASK_STATUS		4
 # define CLOSE_CLIENT	9
 
+# define ACTION_IDLE	0
+# define ACTION_BOUNDS	1
+
+# define EX_WIDTH	500
+# define EX_HEIGHT	500
+
 typedef struct	s_name_base
 {
 	char		**names;
@@ -39,6 +45,7 @@ typedef struct	s_name_base
 typedef struct	s_client
 {
 	int			ready;
+	int			set;
 	int			active;
 	int			socket;
 	char		*name;
@@ -62,7 +69,7 @@ typedef	struct	s_node
 	char				*param;
 	t_name_base			namebase;
 	int					err;
-
+	int					action;
 }				t_node;
 
 int		socket_init();
@@ -98,6 +105,9 @@ char	*get_other_cmd(int cmd_t, t_node *node);
 void	server_run(t_node *node);
 
 int		server_dispatch(t_node *node, char *cmd);
+
+int		server_get_active(t_node *node);
+void	server_get_workload(t_node *node, int act, int wl[2], int mod[2]);
 
 void	server_to_client(t_node *node, int client_id, char *cmd, int prot);
 void	await_command(t_node *node);
