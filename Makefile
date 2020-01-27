@@ -24,7 +24,7 @@ SRC = $(addprefix $(SRC_PATH)/,$(SRC_FILE))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_FILE))
 DEP = $(addprefix $(OBJ_PATH)/,$(DEP_FILE))
 
-CFLAGS = -Wall -Wextra -g -I./includes -fsanitize=address -g -lpthread
+CFLAGS = -Wall -Wextra -g -I./includes -fsanitize=address -g
 CPPFLAGS = -MMD -MP
 LIB = libft.a
 
@@ -37,7 +37,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJ) 
 	#@$(MAKE) -C libft/ VERBOSE=$(VERBOSE)
-	@gcc $(CFLAGS) -o $(TARGET) $(OBJ) $(LIB)
+	@gcc $(CFLAGS) -lpthread -o $(TARGET) $(OBJ) $(LIB)
 	@echo -e "Compilation of $(Cyan)$(TARGET)$(End) : ${Green}Done${End}"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
