@@ -17,7 +17,6 @@ char	*receive_string(t_node *node, int *status)
 	if (recv >= 1024)
 		while ((ssize[1] = read(node->socket_fd, buffer, 1024)) > 0)
 		{
-			printf("%li\n", ssize[1]);
 			buffer[ssize[1]] = '\0';
 			tmp = strjoin(output, buffer);
 			if (output)
@@ -32,7 +31,8 @@ char	*receive_string(t_node *node, int *status)
 		ssize[0] = strlen(output);
 	}
 	printf("Received string : %s\n", output);
-	printf("Validity : %3li%%\n", ssize[0] / recv * 100);
-	*status = (ssize[0] / recv * 100) == 100;
+	if (recv > 0)
+		printf("Validity : %3li%%\n", ssize[0] / recv * 100);
+	*status = recv > 0 ? (ssize[0] / recv * 100) == 100 : 1;
 	return (output);
 }

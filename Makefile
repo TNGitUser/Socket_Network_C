@@ -38,7 +38,7 @@ all: $(TARGET)
 $(TARGET): $(OBJ) 
 	#@$(MAKE) -C libft/ VERBOSE=$(VERBOSE)
 	@gcc $(CFLAGS) -lpthread -o $(TARGET) $(OBJ) $(LIB)
-	@echo -e "Compilation of $(Cyan)$(TARGET)$(End) : ${Green}Done${End}"
+	@printf "Compilation of $(Cyan)$(TARGET)$(End) : ${Green}Done${End}\n"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
@@ -47,7 +47,7 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH)/client 2> /dev/null || true
 	@mkdir $(OBJ_PATH)/server 2> /dev/null || true
 	@gcc $(CFLAGS) -c $< $(CPPFLAGS) -o $@
-	@echo -e "[${Green}Compiled${End}] : $<"
+	@printf "[${Green}Compiled${End}] : $<\n"
 
 .PHONY: clean fclean re
 
@@ -56,21 +56,21 @@ clean:
 	#@$(MAKE) -C libft/ clean
 	@rm -f $(DEP)
 	@rmdir $(OBJ_PATH)/server 2> /dev/null || (true && if [ -d "$(OBJ_PATH)/server" ]; then\
-		echo -e "$(Red)ERROR$(End)	: $(OBJ_PATH)/server is not empty."; fi)
+		printf"$(Red)ERROR$(End)	: $(OBJ_PATH)/server is not empty.\n"; fi)
 	@rmdir $(OBJ_PATH)/client 2> /dev/null || (true && if [ -d "$(OBJ_PATH)/client" ]; then\
-		echo -e "$(Red)ERROR$(End)	: $(OBJ_PATH)/client is not empty."; fi)
+		printf "$(Red)ERROR$(End)	: $(OBJ_PATH)/client is not empty.\n"; fi)
 	@rmdir $(OBJ_PATH)/protocols 2> /dev/null || (true && if [ -d "$(OBJ_PATH)/protocols" ]; then\
-		echo -e "$(Red)ERROR$(End)	: $(OBJ_PATH)/protocols is not empty."; fi)
+		printf "$(Red)ERROR$(End)	: $(OBJ_PATH)/protocols is not empty.\n"; fi)
 	@rmdir $(OBJ_PATH)/identification 2> /dev/null || (true && if [ -d "$(OBJ_PATH)/identification" ]; then\
-		echo -e "$(Red)ERROR$(End)	: $(OBJ_PATH)/identification is not empty."; fi)
+		printf "$(Red)ERROR$(End)	: $(OBJ_PATH)/identification is not empty.\n"; fi)
 	@rmdir $(OBJ_PATH) 2> /dev/null || (true && if [ -d "$(OBJ_PATH)" ]; then\
-		echo -e "$(Red)ERROR$(End)	: $(OBJ_PATH) is not empty."; fi)
-	@echo -e "$(Red)$(TARGET)$(End) : Removing objects"
+		printf "$(Red)ERROR$(End)	: $(OBJ_PATH) is not empty.\n"; fi)
+	@printf "$(Red)$(TARGET)$(End) : Removing objects\n"
 
 fclean: clean
 	@rm -f $(TARGET)
 	#@$(MAKE) -C libft/ clean
-	@echo -e "$(Red)$(TARGET)$(End) : Removing $(TARGET)"
+	@printf "$(Red)$(TARGET)$(End) : Removing $(TARGET)\n"
 
 re: fclean all
 

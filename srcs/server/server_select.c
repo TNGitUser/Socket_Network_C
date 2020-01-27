@@ -57,10 +57,18 @@ void	manage_con_new(t_node *node)
 	char	*cmd;
 
 	addr_len = sizeof(node->addr);
+
 	if ((client_fd = accept(node->socket_fd, (struct sockaddr *)&node->addr,
 					(socklen_t *)&addr_len)) < 0)
 		error("Connection from client failed.");
-
+	if (node->lock)
+	{
+		printf("Server locked. New connection denied\n");
+		cmd = get_other_cmd(CLOSE_CLIENT, node);
+		server_send(node, client_fd, cmd);
+		ft_memdel((void **)&cmd);
+		return ;
+	}
 	//printf("\nNew connection from %s:%d\n", inet_ntoa(node->addr.sin_addr)
 	//		, ntohs(node->addr.sin_port));
 	//printf("Client fd : %i\n", client_fd);

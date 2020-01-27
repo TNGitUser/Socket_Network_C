@@ -64,6 +64,7 @@ char		*get_set_cmd(int cmd_t, t_client client, int bounds[4])
 	char	*tmp;
 	char	*output;
 
+	output = NULL;
 	if (cmd_t == 0)
 	{
 		tmp = strnjoin("SET CLIENT '", client.name, "'");

@@ -70,6 +70,8 @@ typedef	struct	s_node
 	t_name_base			namebase;
 	int					err;
 	int					action;
+	int					lock;
+	int					work[4];
 }				t_node;
 
 int		socket_init();
@@ -107,8 +109,10 @@ void	server_run(t_node *node);
 int		server_dispatch(t_node *node, char *cmd);
 
 int		server_get_active(t_node *node);
+int		server_get_ready(t_node *node);
 void	server_get_workload(t_node *node, int act, int wl[2], int mod[2]);
 
+int		server_send(t_node *node, int client_fd, char *cmd);
 void	server_to_client(t_node *node, int client_id, char *cmd, int prot);
 void	await_command(t_node *node);
 
